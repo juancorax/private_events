@@ -1,0 +1,16 @@
+<% unless @events.empty? %>
+  <h1>Events</h1>
+
+  <ul>
+    <% @events.each do |event| %>
+      <li>
+        <%= event.title %><br>
+        <%= event.body %><br>
+        <%= event.date %><br>
+        <%= event.location %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h1>No events yet...</h1>
+<% end %>
