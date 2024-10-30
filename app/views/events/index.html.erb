@@ -4,10 +4,13 @@
   <ul>
     <% @events.each do |event| %>
       <li>
-        <%= event.title %><br>
-        <%= event.body %><br>
-        <%= event.date %><br>
-        <%= event.location %>
+        <%= link_to event_path(event.id) do %>
+          <%= event.title %><br>
+          <%= event.body %><br>
+          <%= event.date %><br>
+          <%= event.location %><br>
+          <%= "Attendees: #{event.attendees.size}" %>
+        <% end %>
       </li>
     <% end %>
   </ul>

@@ -2,3 +2,19 @@
 <%= @event.body %><br>
 <%= @event.date %><br>
 <%= @event.location %>
+
+<% if user_signed_in? && @event.creator != current_user %>
+  <% if @event.attendees.exists?(id: current_user.id) %>
+    <%= button_to "Cancel",
+    attendance_path(@event.attendances.find_by(attendee_id: current_user.id)),
+    method: :delete %>
+  <% else %>
+    <%= button_to "Attend",
+    attendances_path,
+    params: {
+      attendance: {
+        event_id: @event.id,
+      },
+    } %>
+  <% end %>
+<% end %>
