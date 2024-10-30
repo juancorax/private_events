@@ -4,13 +4,36 @@
   <ul>
     <% @user_created_events.each do |event| %>
       <li>
-        <%= event.title %><br>
-        <%= event.body %><br>
-        <%= event.date %><br>
-        <%= event.location %>
+        <%= link_to event_path(event.id) do %>
+          <%= event.title %><br>
+          <%= event.body %><br>
+          <%= event.date %><br>
+          <%= event.location %><br>
+          <%= "Attendees: #{event.attendees.size}" %>
+        <% end %>
       </li>
     <% end %>
   </ul>
 <% else %>
   <h1>You haven't created any events yet...</h1>
+<% end %>
+
+<% unless @user_attended_events.empty? %>
+  <h1>Attended Events</h1>
+
+  <ul>
+    <% @user_attended_events.each do |event| %>
+      <li>
+        <%= link_to event_path(event.id) do %>
+          <%= event.title %><br>
+          <%= event.body %><br>
+          <%= event.date %><br>
+          <%= event.location %><br>
+          <%= "Attendees: #{event.attendees.size}" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h1>You haven't decided to attend any events yet...</h1>
 <% end %>
