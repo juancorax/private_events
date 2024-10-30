@@ -1,7 +1,16 @@
 <%= @event.title %><br>
 <%= @event.body %><br>
 <%= @event.date %><br>
-<%= @event.location %>
+<%= @event.location %><br><br>
+
+<% if @event.attendees.any? %>
+  <%= "Attendees:" %><br>
+  <ul>
+    <% @event.attendees.each do |attendee| %>
+      <li><%= attendee.username %></li>
+    <% end %>
+  </ul>
+<% end %><br>
 
 <% if user_signed_in? && @event.creator != current_user %>
   <% if @event.attendees.exists?(id: current_user.id) %>
