@@ -5,13 +5,15 @@
 <%= @event.date %><br>
 <%= @event.location %><br><br>
 
-<% if @event.attendees.any? %>
+<% if user_signed_in? && @event.attendees.any? %>
   <%= "Attendees:" %><br>
   <ul>
     <% @event.attendees.each do |attendee| %>
       <li><%= attendee.username %></li>
     <% end %>
   </ul>
+<% else %>
+  <%= "Attendees: #{@event.attendees.size}" %>
 <% end %><br>
 
 <% if user_signed_in? && @event.creator != current_user %>
