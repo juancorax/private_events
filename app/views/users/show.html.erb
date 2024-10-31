@@ -21,19 +21,40 @@
 <% unless @user_attended_events.empty? %>
   <h1>Attended Events</h1>
 
-  <ul>
-    <% @user_attended_events.each do |event| %>
-      <li>
-        <%= link_to event_path(event.id) do %>
-          <%= event.title %><br>
-          <%= event.body %><br>
-          <%= event.date %><br>
-          <%= event.location %><br>
-          <%= "Attendees: #{event.attendees.size}" %>
-        <% end %>
-      </li>
+  <% @user_attended_events.each do |event| %>
+    <% if DateTime.current.before?(event.date) %>
+      <h2>Upcoming Events</h2>
+
+      <ul>
+        <li>
+          <%= link_to event_path(event.id) do %>
+            <%= event.title %><br>
+            <%= event.body %><br>
+            <%= event.date %><br>
+            <%= event.location %><br>
+            <%= "Attendees: #{event.attendees.size}" %>
+          <% end %>
+        </li>
+      </ul>
     <% end %>
-  </ul>
+
+    <% if DateTime.current.after?(event.date) %>
+      <h2>Past Events</h2>
+
+      <ul>
+        <li>
+          <%= link_to event_path(event.id) do %>
+            <%= event.title %><br>
+            <%= event.body %><br>
+            <%= event.date %><br>
+            <%= event.location %><br>
+            <%= "Attendees: #{event.attendees.size}" %>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+
 <% else %>
   <h1>You haven't decided to attend any events yet...</h1>
 <% end %>
