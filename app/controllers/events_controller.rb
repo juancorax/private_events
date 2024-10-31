@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create ]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update ]
 
   def index
     @past_events = Event.past
@@ -21,6 +21,20 @@ class EventsController < ApplicationController
       redirect_to user_path(current_user.id), notice: "Event created"
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params)
+      redirect_to user_path(current_user.id)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

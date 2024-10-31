@@ -28,4 +28,6 @@
       },
     } %>
   <% end %>
+<% elsif @event.creator == current_user %>
+  <%= button_to "Edit", edit_event_path(@event.id), method: :get %>
 <% end %>

@@ -1,0 +1,25 @@
+<%= link_to "Home", root_path %><br><br>
+
+<% if @event.errors.any? %>
+  <ul>
+    <% @event.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @event do |form| %>
+  <%= form.label :title, "Title:" %>
+  <%= form.text_field :title %><br>
+
+  <%= form.label :body, "Body:" %>
+  <%= form.text_area :body %><br>
+
+  <%= form.label :date, "Date:" %>
+  <%= form.datetime_local_field :date %><br>
+
+  <%= form.label :location, "Location:" %>
+  <%= form.text_field :location %><br>
+
+  <%= form.submit "Edit Event" %>
+<% end %>
