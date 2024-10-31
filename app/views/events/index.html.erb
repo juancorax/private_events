@@ -1,35 +1,23 @@
 <% if @past_events.any? || @upcoming_events.any? %>
   <h1>Events</h1>
 
-  <% @upcoming_events.each do |event| %>
+  <% if @upcoming_events.any? %>
     <h2>Upcoming Events</h2>
 
     <ul>
-      <li>
-        <%= link_to event_path(event.id) do %>
-          <%= event.title %><br>
-          <%= event.body %><br>
-          <%= event.date %><br>
-          <%= event.location %><br>
-          <%= "Attendees: #{event.attendees.size}" %>
-        <% end %>
-      </li>
+      <% @upcoming_events.each do |event| %>
+        <%= render partial: "shared/event", locals: { event: event } %>
+      <% end %>
     </ul>
   <% end %>
 
-  <% @past_events.each do |event| %>
+  <% if @past_events.any? %>
     <h2>Past Events</h2>
 
     <ul>
-      <li>
-        <%= link_to event_path(event.id) do %>
-          <%= event.title %><br>
-          <%= event.body %><br>
-          <%= event.date %><br>
-          <%= event.location %><br>
-          <%= "Attendees: #{event.attendees.size}" %>
-        <% end %>
-      </li>
+      <% @past_events.each do |event| %>
+        <%= render partial: "shared/event", locals: { event: event } %>
+      <% end %>
     </ul>
   <% end %>
 
