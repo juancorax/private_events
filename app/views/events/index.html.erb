@@ -1,8 +1,10 @@
-<% unless @events.empty? %>
+<% if @past_events.any? || @upcoming_events.any? %>
   <h1>Events</h1>
 
-  <ul>
-    <% @events.each do |event| %>
+  <% @upcoming_events.each do |event| %>
+    <h2>Upcoming Events</h2>
+
+    <ul>
       <li>
         <%= link_to event_path(event.id) do %>
           <%= event.title %><br>
@@ -12,8 +14,25 @@
           <%= "Attendees: #{event.attendees.size}" %>
         <% end %>
       </li>
-    <% end %>
-  </ul>
+    </ul>
+  <% end %>
+
+  <% @past_events.each do |event| %>
+    <h2>Past Events</h2>
+
+    <ul>
+      <li>
+        <%= link_to event_path(event.id) do %>
+          <%= event.title %><br>
+          <%= event.body %><br>
+          <%= event.date %><br>
+          <%= event.location %><br>
+          <%= "Attendees: #{event.attendees.size}" %>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
+
 <% else %>
   <h1>No events yet...</h1>
 <% end %>
