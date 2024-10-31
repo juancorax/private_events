@@ -1,3 +1,7 @@
+<% if user_signed_in? %>
+  <%= link_to "My Events", user_path(current_user.id) %>
+<% end %>
+
 <% if @past_events.any? || @upcoming_events.any? %>
   <h1>Events</h1>
 
