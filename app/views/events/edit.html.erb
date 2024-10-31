@@ -21,5 +21,12 @@
   <%= form.label :location, "Location:" %>
   <%= form.text_field :location %><br>
 
-  <%= form.submit "Edit Event" %>
+  <%= form.submit "Update Event" %>
 <% end %>
+
+<%= button_to "Delete Event",
+event_path(@event.id),
+data: {
+  turbo_confirm: "Are you sure?",
+},
+method: :delete %>

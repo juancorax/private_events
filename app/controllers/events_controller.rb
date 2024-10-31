@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update ]
+  before_action :authenticate_user!, except: [ :index, :show ]
 
   def index
     @past_events = Event.past
@@ -32,10 +32,17 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update(event_params)
-      redirect_to user_path(current_user.id)
+      redirect_to user_path(current_user.id), notice: "Event updated"
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy!
+
+    redirect_to user_path(current_user.id), notice: "Event deleted"
   end
 
   private
